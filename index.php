@@ -11,6 +11,7 @@ $conn = $database->getConnection();
 $query = "SELECT id, name, email, phone, created_at FROM contacts ORDER BY id ASC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
+$contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Check for action messages
 $message = '';
@@ -66,7 +67,7 @@ if(isset($_GET['action'])) {
             <a href="create.php" class="btn btn-primary">Add New Contact</a>
         </div>
         
-        <?php if($stmt->rowCount() > 0): ?>
+        <?php if(count($contacts) > 0): ?>
             <table class="table">
                 <thead>
                     <tr>
@@ -79,7 +80,7 @@ if(isset($_GET['action'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <?php foreach ($contacts as $row): ?>
                         <tr>
                             <td><?php echo $row['id']; ?></td>
                             <td><?php echo htmlspecialchars($row['name']); ?></td>
@@ -92,7 +93,7 @@ if(isset($_GET['action'])) {
                                 <a href="delete.php?id=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this contact?')">Delete</a>
                             </td>
                         </tr>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
