@@ -70,3 +70,7 @@ Then open your browser and navigate to: `http://localhost:8000`
 
 ## Sample Data
 The setup.sql file includes 3 sample contacts for testing.
+
+---
+
+⭐ If you like this project, feel free to give it a star on GitHub!
